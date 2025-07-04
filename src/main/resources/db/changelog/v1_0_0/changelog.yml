@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: release/1.0.0
+      author: SarinXo
+      changes:
+        - tagDatabase:
+            tag: release/1.0.0
+  - include:
+      file: 01_create_mdm_message_table.yml
+      relativeToChangelogFile: true
+  - include:
+      file: 02_create_mdm_message_outbox_table.yml
+      relativeToChangelogFile: true
+  - include:
+      file: 03_add_mdm_message_outbox_constraints.yml
+      relativeToChangelogFile: true

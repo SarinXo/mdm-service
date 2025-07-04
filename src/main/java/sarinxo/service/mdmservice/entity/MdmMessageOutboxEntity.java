@@ -35,7 +35,7 @@ public class MdmMessageOutboxEntity extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * Cобытия из таблицы mdmMessage
+     * Cобытие из таблицы mdmMessage
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mdm_message_id")
