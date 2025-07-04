@@ -23,7 +23,7 @@ services:
       KAFKA_DEFAULT_REPLICATION_FACTOR: 3
       KAFKA_MIN_INSYNC_REPLICAS: 2
     volumes:
-      - .appdata/kafka1-data:/var/lib/kafka/data
+      - appdata/kafka1-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/9092"]
       interval: 15s
@@ -57,7 +57,7 @@ services:
       KAFKA_DEFAULT_REPLICATION_FACTOR: 3
       KAFKA_MIN_INSYNC_REPLICAS: 2
     volumes:
-      - .appdata/kafka2-data:/var/lib/kafka/data
+      - appdata/kafka2-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/9092"]
       interval: 15s
@@ -90,7 +90,7 @@ services:
       KAFKA_DEFAULT_REPLICATION_FACTOR: 3
       KAFKA_MIN_INSYNC_REPLICAS: 2
     volumes:
-      - .appdata/kafka3-data:/var/lib/kafka/data
+      - appdata/kafka3-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/9092"]
       interval: 15s
