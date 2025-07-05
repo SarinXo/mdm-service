@@ -128,8 +128,3 @@ services:
         limits:
           memory: 512m
           cpus: "0.25"
-
-volumes:
-  kafka1-data:
-  kafka2-data:
-  kafka3-data:
