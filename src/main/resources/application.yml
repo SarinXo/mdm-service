@@ -3,12 +3,19 @@ spring:
     name: mdm-service
 
   kafka:
-    bootstrap-servers: localhost:9092,kafka2:9092,kafka3:9092
+    bootstrap-servers: localhost:29092,localhost:29093,localhost:29094
     consumer:
-      group-id: my-group
+      group-id: mdm-service
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+mdm-service:
+  kafka:
+    dlt-topic-suffix: .DLT
+    user-event:
+      topic-name: MDM.Change.Phone.IN.V1

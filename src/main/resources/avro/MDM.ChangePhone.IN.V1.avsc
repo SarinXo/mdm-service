@@ -1,0 +1,27 @@
+{
+  "namespace": "sarinxo.service.mdmservice.dto",
+  "type": "record",
+  "name": "UserEventDto",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "type": {
+        "type": "enum",
+        "name": "EventType",
+        "symbols": ["USER_PHONE_CHANGE"]
+      }
+    },
+    {
+      "name": "guid",
+      "type": "string"
+    },
+    {
+      "name": "phone",
+      "type": "string"
+    }
+  ]
+}
