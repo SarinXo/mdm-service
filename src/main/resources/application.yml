@@ -3,7 +3,7 @@ spring:
     name: mdm-service
 
   kafka:
-    bootstrap-servers: localhost:29092,localhost:29093,localhost:29094
+    bootstrap-servers: localhost:9391,localhost:9392,localhost:9393
     consumer:
       group-id: mdm-service
       auto-offset-reset: earliest

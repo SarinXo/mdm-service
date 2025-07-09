@@ -64,7 +64,6 @@ public class KafkaConfig {
         return TopicBuilder
                 .name(kafkaTopicProperties.userEvent().topicName())
                 .partitions(3)
-                .replicas(2)
                 .compact()
                 .build();
     }
@@ -76,7 +75,6 @@ public class KafkaConfig {
         return TopicBuilder
                 .name(dltTopicName)
                 .partitions(3)
-                .replicas(2)
                 .build();
     }
 
