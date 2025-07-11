@@ -1,43 +1,38 @@
 databaseChangeLog:
   - changeSet:
-      id: "01_create_mdm_message_table.yml"
+      id: "02_create_mdm_message_outbox_table.yml"
       author: SarinXo
       changes:
         - createTable:
-            tableName: mdm_message
-            remarks: "Событие из MDM системы"
+            tableName: mdm_message_outbox
+            remarks: "Статус отправки MDM события во внешний сервис"
             columns:
 
               - column:
                   name: id
-                  type: UUID
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
 
               - column:
-                  name: external_id
+                  name: mdm_message_id
                   type: UUID
-                  remarks: "Уникальный идентификатор сообщения из внешней системы"
+                  remarks: "Уникальный идентификатор события из таблицы mdmMessage"
 
               - column:
-                  name: guid
+                  name: status
                   type: VARCHAR
-                  remarks: "Уникальный идентификатор клиента"
+                  remarks: "Статус доставки сообщения"
 
               - column:
-                  name: type
+                  name: target
                   type: VARCHAR
-                  remarks: "Тип события"
+                  remarks: "Направление, куда должно быть доставлено сообщение"
 
               - column:
-                  name: payload
+                  name: response_data
                   type: JSONB
-                  remarks: "Содержимое сообщения"
-
-              - column:
-                  name: description
-                  type: VARCHAR
-                  remarks: "Описание для короткой ссылки"
+                  remarks: "Ответ внешнего сервиса"
 
               # аудируемые поля
               - column:
@@ -49,11 +44,12 @@ databaseChangeLog:
                   name: last_update_time
                   type: TIMESTAMP
                   remarks: "Время последнего изменения"
-                  
+
               - column:
                   name: create_user
                   type: varchar
                   remarks: "Пользователь/сервис, который создал запись"
+
               - column:
                   name: last_update_user
                   type: varchar

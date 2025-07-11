@@ -1,5 +1,5 @@
 databaseChangeLog:
   - include:
       author: SarinXo
-      file: "v1_0_0/changelog.yml"
+      file: "v1.0.0/changelog.yml"
       relativeToChangelogFile: true

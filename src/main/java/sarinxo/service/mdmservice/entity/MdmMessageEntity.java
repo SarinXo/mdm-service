@@ -28,7 +28,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mdm_message", schema = "mdm")
+@Table(name = "mdm_message")
 public class MdmMessageEntity extends AuditableEntity {
 
     @Id
@@ -56,7 +56,7 @@ public class MdmMessageEntity extends AuditableEntity {
     /**
      * Участие в доставки данного сообщения
      */
-    @OneToMany(mappedBy = "mdmMessageId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mdmMessageId")
     private Set<MdmMessageOutboxEntity> outboxMessages;
 
     @Override
@@ -79,13 +79,6 @@ public class MdmMessageEntity extends AuditableEntity {
         return this instanceof HibernateProxy
                 ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode()
                 : getClass().hashCode();
-    }
-
-    /**
-     * Тип события
-     */
-    public enum MdmEventType {
-        USER_PHONE_CHANGE
     }
 
 }

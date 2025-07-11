@@ -28,7 +28,7 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mdm_message_outbox", schema = "mdm")
+@Table(name = "mdm_message_outbox")
 public class MdmMessageOutboxEntity extends AuditableEntity {
 
     @Id
