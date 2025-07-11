@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: "03_add_mdm_message_outbox_constraints.yml"
+      author: SarinXo
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: mdm_message_id
+            baseTableSchemaName: mdm
+            baseTableName: mdm_message_outbox
+            constraintName: fk_mdm_message_outbox_to_mdm_message
+            referencedColumnNames: id
+            referencedTableName: mdm_message
+            referencedTableSchemaName: mdm
