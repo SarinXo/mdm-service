@@ -2,8 +2,6 @@ package sarinxo.service.mdmservice.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.RetryableTopic;
-import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Component;
 import sarinxo.service.mdmservice.config.property.KafkaTopicProperties;
 import sarinxo.service.mdmservice.dto.UserEventDto;
@@ -18,14 +16,6 @@ public class KafkaConsumer {
         this.kafkaTopicProperties = kafkaTopicProperties;
     }
 
-    @RetryableTopic(
-            attempts = "5",
-            backoff = @Backoff(
-                    delay = 500,
-                    multiplier = 1.25,
-                    maxDelay = 3000
-            )
-    )
     @KafkaListener(
             topics = "${mdm-service.kafka.user-event.topic-name}",
             containerFactory = "userEventListenerContainerFactory"
@@ -36,7 +26,7 @@ public class KafkaConsumer {
     }
 
     @KafkaListener(
-            topics = "${mdm-service.kafka.user-event.topic-name}.DLT"
+            topics = "${mdm-service.kafka.user-event.topic-name}${mdm-service.kafka.dlt-topic-suffix}"
     )
     public void consumeDlt(String dto) {
         log.info("Consumer DLT received: {}", dto);

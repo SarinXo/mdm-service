@@ -1,8 +1,11 @@
 package sarinxo.service.mdmservice.config;
 
+import jakarta.el.MethodNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,15 +16,20 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.retrytopic.RetryTopicConfiguration;
-import org.springframework.kafka.retrytopic.RetryTopicConfigurationBuilder;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
+import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.kafka.support.serializer.DeserializationException;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
+import org.springframework.util.backoff.ExponentialBackOff;
+import org.springframework.validation.Validator;
 import sarinxo.service.mdmservice.config.property.KafkaTopicProperties;
 import sarinxo.service.mdmservice.deserializer.UserEventDtoDeserializer;
 import sarinxo.service.mdmservice.dto.UserEventDto;
+import sarinxo.service.mdmservice.utils.ExceptionUtil;
 
-import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @EnableKafka
 @Configuration
 @RequiredArgsConstructor
@@ -36,21 +44,34 @@ public class KafkaConfig {
      */
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, UserEventDto> userEventListenerContainerFactory(
-            ConsumerFactory<String, UserEventDto> userEventConsumerFactory
+            ConsumerFactory<String, UserEventDto> userEventConsumerFactory,
+            DefaultErrorHandler mdmErrorHandler
     ) {
         var factory = new ConcurrentKafkaListenerContainerFactory<String, UserEventDto>();
         factory.setConsumerFactory(userEventConsumerFactory);
+        factory.setCommonErrorHandler(mdmErrorHandler);
         factory.getContainerProperties().setPollTimeout(500);
 
         return factory;
     }
 
     @Bean
-    public ConsumerFactory<String, UserEventDto> userEventConsumerFactory(KafkaProperties kafkaProperties) {
+    public ConsumerFactory<String, UserEventDto> userEventConsumerFactory(
+            KafkaProperties kafkaProperties,
+            Validator validator
+    ) {
         Map<String, Object> props = kafkaProperties.buildConsumerProperties();
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, UserEventDtoDeserializer.class);
 
-        return new DefaultKafkaConsumerFactory<>(props);
+        var keyDeserializer = new StringDeserializer();
+        var valDeserializer = new ErrorHandlingDeserializer<>(new UserEventDtoDeserializer());
+        valDeserializer.setValidator(validator);
+
+        var consumerFactory = new DefaultKafkaConsumerFactory<String, UserEventDto>(props);
+        consumerFactory.setValueDeserializer(valDeserializer);
+        consumerFactory.setKeyDeserializer(keyDeserializer);
+
+        return consumerFactory;
+
     }
 
     @Bean
@@ -79,15 +100,33 @@ public class KafkaConfig {
     }
 
     @Bean
-    public RetryTopicConfiguration kafkaRetryConfig(
-            KafkaTemplate<String, String> dltKafkaTemplate
+    public DefaultErrorHandler mdmErrorHandler(
+            KafkaTemplate<String, String> dltKafkaTemplate,
+            KafkaTopicProperties kProps
     ) {
-        return RetryTopicConfigurationBuilder
-                .newInstance()
-                .maxAttempts(5)
-                .exponentialBackoff(500L, 1.25, 3_000L)
-                .dltSuffix(kafkaTopicProperties.dltTopicSuffix())
-                .create(dltKafkaTemplate);
+        DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(
+                dltKafkaTemplate,
+                (record, ex) -> new TopicPartition(record.topic() + kProps.dltTopicSuffix(), record.partition())
+        );
+
+        ExponentialBackOff backOff = new ExponentialBackOff(500L, 1.25);
+        backOff.setMaxAttempts(5);
+        backOff.setMaxInterval(3_000L);
+
+        DefaultErrorHandler errorHandler = new DefaultErrorHandler(recoverer, backOff);
+
+        errorHandler.addNotRetryableExceptions(
+                DeserializationException.class,
+                IllegalArgumentException.class,
+                ClassNotFoundException.class,
+                MethodNotFoundException.class
+        );
+
+        errorHandler.setRetryListeners((record, ex, deliveryAttempt) ->
+                log.warn("Retry attempt {} for record {} failed with exception {}",
+                        deliveryAttempt, record.value(), ExceptionUtil.causeChain(ex)));
+
+        return errorHandler;
     }
 
 }

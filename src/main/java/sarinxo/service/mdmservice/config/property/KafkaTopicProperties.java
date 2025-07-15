@@ -12,13 +12,13 @@ public record KafkaTopicProperties(
         /*
          * Суффикс для DLQ топиков
          */
-         @NotEmpty(message = "Field 'dltTopicSuffix' can't be empty")
-         String dltTopicSuffix,
+        @NotEmpty(message = "Field 'dltTopicSuffix' can't be empty")
+        String dltTopicSuffix,
         /*
          * Топик, в котором передаем UserEventDto
          */
-         @Valid
-         UserEvent userEvent
+        @Valid
+        UserEvent userEvent
 ) {
 
     public record UserEvent(
