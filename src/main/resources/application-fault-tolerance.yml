@@ -1,0 +1,42 @@
+resilience4j:
+
+  # Для разрыва соединения с ресурсами, которые перегружены
+  circuitbreaker:
+    configs:
+      default-circuitbreaker-config:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+
+  # Ограничение по времени ответа
+  timelimiter:
+    configs:
+      default-timelimiter-config:
+        timeout-duration: 2s
+
+  # Ограничение по запросам к ресурсу
+  ratelimiter:
+    configs:
+      default-ratelimiter-config:
+        limit-for-period: 5
+        limit-refresh-period: 1s
+        timeout-duration: 0
+
+  # Повторные попытки запроса
+  retry:
+    configs:
+      default-retry-config:
+        max-attempts: 5
+        wait-duration: 200ms
+        retry-exceptions:
+          feign.RetryableException
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 1.25
+
+  # Для отделения запроса от основного пула веб сервера
+  bulkhead:
+    configs:
+      default-bulkhead-config:
+        max-concurrent-calls: 10
+        max-wait-duration: 200ms
