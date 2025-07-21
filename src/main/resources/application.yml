@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: local
+    #TODO удалить
   application:
     name: mdm-service
 
@@ -19,3 +22,14 @@ mdm-service:
     dlt-topic-suffix: .DLT
     user-event:
       topic-name: MDM.Change.Phone.IN.V1
+  clients:
+    service1:
+      url: "http://localhost:8080/user-data-service-one"
+      endpoints:
+        - name:
+          url:
+    service2:
+      url: "http://localhost:8080/user-data-service-two"
+      endpoints:
+        - name:
+          url:
