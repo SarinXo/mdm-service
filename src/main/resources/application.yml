@@ -28,6 +28,8 @@ external-api:
   service1:
     url: "http://localhost:8080/user-data-service-one"
     endpoints:
+      update-phone: "/update-phone"
   service2:
     url: "http://localhost:8080/user-data-service-two"
     endpoints:
+      update-phone: "/user/update/phone"

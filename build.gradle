@@ -38,6 +38,8 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
+    implementation 'org.jetbrains:annotations:24.0.1'
+
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 
     implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jVersion}"
