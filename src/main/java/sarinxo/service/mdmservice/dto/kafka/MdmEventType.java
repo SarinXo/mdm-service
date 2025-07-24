@@ -1,4 +1,4 @@
-package sarinxo.service.mdmservice.dto;
+package sarinxo.service.mdmservice.dto.kafka;
 
 /**
  * Тип события

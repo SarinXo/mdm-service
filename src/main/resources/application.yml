@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: fault-tolerance
     #TODO удалить
   application:
     name: mdm-service
@@ -22,14 +22,27 @@ mdm-service:
     dlt-topic-suffix: .DLT
     user-event:
       topic-name: MDM.Change.Phone.IN.V1
+  meta:
+    app-name: "${spring.application.name}-SarinXo"
 
 
 external-api:
   service1:
     url: "http://localhost:8080/user-data-service-one"
-    endpoints:
-      update-phone: "/update-phone"
   service2:
     url: "http://localhost:8080/user-data-service-two"
-    endpoints:
-      update-phone: "/user/update/phone"
+
+
+resilience4j:
+  retry:
+    instances:
+      service1Client:
+        base-config: default-retry-config
+  timelimiter:
+    instances:
+      service1Client:
+        base-config: default-timelimiter-config
+  ratelimiter:
+    instances:
+      service1Client:
+        base-config: default-ratelimiter-config

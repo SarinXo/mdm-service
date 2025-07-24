@@ -1,4 +1,4 @@
-package sarinxo.service.mdmservice.dto;
+package sarinxo.service.mdmservice.dto.service1;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPhoneUpdateResponse {
+public class RequestMeta {
 
-    private UserPhoneUpdateService1Body body;
+    String systemId;
+    String sender;
 
 }

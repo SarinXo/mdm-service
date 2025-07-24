@@ -1,22 +1,19 @@
-package sarinxo.service.mdmservice.dto;
+package sarinxo.service.mdmservice.dto.service1;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPhoneUpdateRequest {
-
-    private String id;
-    private String systemId;
-    private List<UserPhoneUpdateEvent> events;
+public class UserPhoneUpdateService1Response {
+    @Valid
+    private UserPhoneUpdateService1ResponseBody body;
 
 }

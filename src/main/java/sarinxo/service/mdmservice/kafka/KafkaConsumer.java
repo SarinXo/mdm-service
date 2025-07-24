@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import sarinxo.service.mdmservice.config.property.KafkaTopicProperties;
-import sarinxo.service.mdmservice.dto.UserEventDto;
+import sarinxo.service.mdmservice.dto.kafka.UserEventKafkaDto;
 
 @Slf4j
 @Component
@@ -20,7 +20,7 @@ public class KafkaConsumer {
             topics = "${mdm-service.kafka.user-event.topic-name}",
             containerFactory = "userEventListenerContainerFactory"
     )
-    public void consume(UserEventDto dto) {
+    public void consume(UserEventKafkaDto dto) {
         log.info("Consumer received: {}", dto);
         //логики пока нет
     }

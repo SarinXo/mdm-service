@@ -24,7 +24,7 @@ import org.springframework.util.backoff.ExponentialBackOff;
 import org.springframework.validation.Validator;
 import sarinxo.service.mdmservice.config.property.KafkaTopicProperties;
 import sarinxo.service.mdmservice.deserializer.UserEventDtoDeserializer;
-import sarinxo.service.mdmservice.dto.UserEventDto;
+import sarinxo.service.mdmservice.dto.kafka.UserEventKafkaDto;
 import sarinxo.service.mdmservice.utils.ExceptionUtil;
 
 import java.util.Map;
@@ -43,11 +43,11 @@ public class KafkaConfig {
      * @param userEventConsumerFactory фабрика с измененным десериализатором.
      */
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, UserEventDto> userEventListenerContainerFactory(
-            ConsumerFactory<String, UserEventDto> userEventConsumerFactory,
+    public ConcurrentKafkaListenerContainerFactory<String, UserEventKafkaDto> userEventListenerContainerFactory(
+            ConsumerFactory<String, UserEventKafkaDto> userEventConsumerFactory,
             DefaultErrorHandler mdmErrorHandler
     ) {
-        var factory = new ConcurrentKafkaListenerContainerFactory<String, UserEventDto>();
+        var factory = new ConcurrentKafkaListenerContainerFactory<String, UserEventKafkaDto>();
         factory.setConsumerFactory(userEventConsumerFactory);
         factory.setCommonErrorHandler(mdmErrorHandler);
         factory.getContainerProperties().setPollTimeout(500);
@@ -56,7 +56,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConsumerFactory<String, UserEventDto> userEventConsumerFactory(
+    public ConsumerFactory<String, UserEventKafkaDto> userEventConsumerFactory(
             KafkaProperties kafkaProperties,
             Validator validator
     ) {
@@ -66,7 +66,7 @@ public class KafkaConfig {
         var valDeserializer = new ErrorHandlingDeserializer<>(new UserEventDtoDeserializer());
         valDeserializer.setValidator(validator);
 
-        var consumerFactory = new DefaultKafkaConsumerFactory<String, UserEventDto>(props);
+        var consumerFactory = new DefaultKafkaConsumerFactory<String, UserEventKafkaDto>(props);
         consumerFactory.setValueDeserializer(valDeserializer);
         consumerFactory.setKeyDeserializer(keyDeserializer);
 

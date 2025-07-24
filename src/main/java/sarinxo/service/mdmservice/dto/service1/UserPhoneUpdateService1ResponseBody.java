@@ -1,7 +1,7 @@
-package sarinxo.service.mdmservice.dto;
+package sarinxo.service.mdmservice.dto.service1;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,14 +14,13 @@ import org.jetbrains.annotations.Nullable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPhoneUpdateService1Body {
+public class UserPhoneUpdateService1ResponseBody {
 
-    @NotNull(message = "Field 'guid' can't be null")
-    @Size(min = 32, max = 32, message = "Field 'guid' must have 32 symbols")
-    String id;
+    @NotEmpty(message = "Field 'id' can't be empty")
+    private String id;
     @NotNull(message = "Field 'status' can't be null")
-    ServiceStatus status;
+    private ServiceStatus status;
     @Getter(onMethod_ = @Nullable)
-    String errorMessage;
+    private String errorMessage;
 
 }

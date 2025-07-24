@@ -1,4 +1,4 @@
-package sarinxo.service.mdmservice.dto;
+package sarinxo.service.mdmservice.dto.kafka;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEventDto {
+public class UserEventKafkaDto {
 
     @NotNull(message = "Field 'id' can't be null")
     private UUID id;
