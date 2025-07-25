@@ -3,13 +3,13 @@ package sarinxo.service.mdmservice.config.feign;
 import feign.codec.Decoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import sarinxo.service.mdmservice.client.Service1Decoder;
+import sarinxo.service.mdmservice.client.FeignServiceDecoder;
 
 @Configuration
-public class Service1Config {
+public class DeignServiceConfig {
 
     @Bean
-    public Service1Decoder feignDecoder(Decoder decoder) {
-        return new Service1Decoder(decoder);
+    public FeignServiceDecoder feignDecoder(Decoder decoder) {
+        return new FeignServiceDecoder(decoder);
     }
 }

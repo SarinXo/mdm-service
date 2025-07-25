@@ -10,11 +10,11 @@ import sarinxo.service.mdmservice.dto.service1.UserPhoneUpdateService1Response;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-public class Service1Decoder implements Decoder {
+public class FeignServiceDecoder implements Decoder {
 
     private final Decoder decoder;
 
-    public Service1Decoder(Decoder decoder) {
+    public FeignServiceDecoder(Decoder decoder) {
         this.decoder = decoder;
     }
 
@@ -26,7 +26,7 @@ public class Service1Decoder implements Decoder {
             if (ServiceStatus.ERROR.equals(dto.getBody().getStatus())) {
                 throw new RetryableException(
                         response.status(),
-                        "Service1 response status = ERROR",
+                        "Service response status = ERROR",
                         response.request().httpMethod(),
                         (Long)null,
                         response.request());
