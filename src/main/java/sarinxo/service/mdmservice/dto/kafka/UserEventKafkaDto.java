@@ -21,7 +21,8 @@ public class UserEventKafkaDto {
     @NotNull(message = "Field 'id' can't be null")
     private UUID id;
     @NotNull(message = "Field 'type' can't be null")
-    private MdmEventType type;
+    @Pattern(regexp = "USER_PHONE_CHANGE")
+    private String type;
     @NotNull(message = "Field 'guid' can't be null")
     @Size(min = 32, max = 32, message = "Field 'guid' must have 32 symbols")
     private String guid;
