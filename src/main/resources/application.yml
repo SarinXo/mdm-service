@@ -38,6 +38,8 @@ resilience4j:
     instances:
       service1Client:
         base-config: default-retry-config
+      service2Client:
+        base-config: default-retry-config
   timelimiter:
     instances:
       service1Client:

@@ -1,7 +1,7 @@
-package sarinxo.service.mdmservice.dto.service1;
+package sarinxo.service.mdmservice.dto.service2;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,13 +9,11 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestMeta {
-
-    String systemId;
-    String sender;
+public class UserPhoneUpdateService2Response {
+    @Valid
+    private UserPhoneUpdateService2ResponseBody body;
 
 }

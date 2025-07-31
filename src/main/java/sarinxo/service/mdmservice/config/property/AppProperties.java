@@ -6,12 +6,11 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @ConfigurationProperties("mdm-service.meta")
-public class AppProperties {
-
-    /*
-     * Название приложения
-     */
-    @NotEmpty(message = "Field 'appName' can't be empty")
-    String appName;
-
+public record AppProperties(
+        /*
+         * Название приложения
+         */
+        @NotEmpty(message = "Field 'appName' can't be empty")
+        String appName
+) {
 }

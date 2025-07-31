@@ -1,21 +1,22 @@
-package sarinxo.service.mdmservice.dto.service1;
+package sarinxo.service.mdmservice.dto.service2;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
-@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestMeta {
+public class UserPhoneUpdateService2Request {
 
+    String id;
     String systemId;
-    String sender;
+    List<UserPhoneUpdateEvent> events;
 
 }

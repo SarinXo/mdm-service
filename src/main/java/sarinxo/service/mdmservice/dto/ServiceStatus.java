@@ -1,4 +1,4 @@
-package sarinxo.service.mdmservice.dto.service1;
+package sarinxo.service.mdmservice.dto;
 
 public enum ServiceStatus {
     SUCCESS, ERROR;

@@ -4,7 +4,7 @@ import feign.FeignException;
 import feign.Response;
 import feign.RetryableException;
 import feign.codec.Decoder;
-import sarinxo.service.mdmservice.dto.service1.ServiceStatus;
+import sarinxo.service.mdmservice.dto.ServiceStatus;
 import sarinxo.service.mdmservice.dto.service1.UserPhoneUpdateService1Response;
 
 import java.io.IOException;
