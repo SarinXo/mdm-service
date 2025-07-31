@@ -13,6 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPhoneUpdateService1Response {
+
     @Valid
     private UserPhoneUpdateService1ResponseBody body;
 

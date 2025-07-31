@@ -5,10 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import sarinxo.service.mdmservice.client.Service1FeignClient;
-import sarinxo.service.mdmservice.client.Service2FeignClient;
-import sarinxo.service.mdmservice.config.property.AppProperties;
-import sarinxo.service.mdmservice.config.property.KafkaTopicProperties;
 import sarinxo.service.mdmservice.dto.kafka.UserEventKafkaDto;
 
 @Slf4j

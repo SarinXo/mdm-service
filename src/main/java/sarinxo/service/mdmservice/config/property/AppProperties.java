@@ -13,4 +13,5 @@ public record AppProperties(
         @NotEmpty(message = "Field 'appName' can't be empty")
         String appName
 ) {
+
 }

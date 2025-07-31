@@ -28,7 +28,7 @@ public class FeignServiceDecoder implements Decoder {
                         response.status(),
                         "Service response status = ERROR",
                         response.request().httpMethod(),
-                        (Long)null,
+                        (Long) null,
                         response.request());
             }
         }

@@ -11,7 +11,8 @@ public class ExceptionUtil {
 
     /**
      * Делает развертку только из исключений и сообщений к ним
-     * @param e исключение
+     *
+     * @param e             исключение
      * @param maxIterations кол-во максимальной вложенности
      * @return Отформатированную строку с stacktrace
      */
@@ -26,4 +27,5 @@ public class ExceptionUtil {
         }
         return sb.toString();
     }
+
 }
