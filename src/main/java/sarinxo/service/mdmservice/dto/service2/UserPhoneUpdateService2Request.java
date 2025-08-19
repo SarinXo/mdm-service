@@ -18,8 +18,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserPhoneUpdateService2Request {
 
-    UUID id;
-    String systemId;
-    List<UserPhoneUpdateEvent> events;
+    private UUID id;
+    private String systemId;
+    private List<UserPhoneUpdateEvent> events;
 
 }

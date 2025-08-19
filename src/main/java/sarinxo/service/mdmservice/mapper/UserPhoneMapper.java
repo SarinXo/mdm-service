@@ -15,15 +15,6 @@ public interface UserPhoneMapper {
 
     UserPhoneUpdateService1RequestBody eventToService1RequestBody(UserEventKafkaDto dto);
 
-    @Mapping(source = "type", target = "eventType", qualifiedByName = "mapEventType")
-    UserPhoneUpdateEvent eventToService2RequestBody(UserEventKafkaDto event);
-
-    @Named("mapEventType")
-    static String mapEventType(String value) {
-        if ("USER_PHONE_CHANGE".equals(value)) {
-            return "change_phone";
-        }
-        return value;
-    }
+    UserPhoneUpdateEvent eventToService2RequestBody(UserEventKafkaDto event, String eventType);
 
 }

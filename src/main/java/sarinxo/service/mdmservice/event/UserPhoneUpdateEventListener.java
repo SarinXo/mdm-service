@@ -44,7 +44,7 @@ public class UserPhoneUpdateEventListener {
     @EventListener
     public void sendInService2(UserEventKafkaDto event) {
         log.debug("Event Listener: send message in service2: {}", event);
-        UserPhoneUpdateEvent body = mapper.eventToService2RequestBody(event);
+        UserPhoneUpdateEvent body = mapper.eventToService2RequestBody(event, "change_phone");
         UserPhoneUpdateService2Request request = UserPhoneUpdateService2Request.builder()
                 .id(UUID.randomUUID())
                 .systemId(appProperties.appName())

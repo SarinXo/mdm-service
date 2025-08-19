@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.jetbrains.annotations.Nullable;
-import sarinxo.service.mdmservice.dto.ServiceStatus;
+import sarinxo.service.mdmservice.dto.ResponseStatus;
 
 @Getter
 @Setter
@@ -19,8 +19,7 @@ public class UserPhoneUpdateService2ResponseBody {
 
     @NotEmpty(message = "Field 'id' can't be empty")
     private String id;
-    @NotNull(message = "Field 'status' can't be null")
-    private ServiceStatus status;
+    private ResponseStatus status;
     @Getter(onMethod_ = @Nullable)
     private String errorMessage;
 

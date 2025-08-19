@@ -10,7 +10,7 @@ import sarinxo.service.mdmservice.client.FeignServiceDecoder;
 
 @Configuration
 @RequiredArgsConstructor
-public class DeignServiceConfig {
+public class FeignServiceConfig {
 
     private final ObjectFactory<HttpMessageConverters> messageConverters;
 

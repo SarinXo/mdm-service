@@ -3,11 +3,11 @@ package sarinxo.service.mdmservice.client;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import sarinxo.service.mdmservice.config.feign.DeignServiceConfig;
+import sarinxo.service.mdmservice.config.feign.FeignServiceConfig;
 import sarinxo.service.mdmservice.dto.service1.UserPhoneUpdateService1Request;
 import sarinxo.service.mdmservice.dto.service1.UserPhoneUpdateService1Response;
 
-@FeignClient(url = "${external-api.service1.url}", name = "service1Client", configuration = DeignServiceConfig.class)
+@FeignClient(url = "${external-api.service1.url}", name = "service1Client", configuration = FeignServiceConfig.class)
 public interface Service1FeignClient {
 
     @PostMapping("/update-phone")

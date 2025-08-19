@@ -4,7 +4,7 @@ import feign.FeignException;
 import feign.Response;
 import feign.RetryableException;
 import feign.codec.Decoder;
-import sarinxo.service.mdmservice.dto.ServiceStatus;
+import sarinxo.service.mdmservice.dto.ResponseStatus;
 import sarinxo.service.mdmservice.dto.service1.UserPhoneUpdateService1Response;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class FeignServiceDecoder implements Decoder {
         Object decoded = decoder.decode(response, type);
 
         if (decoded instanceof UserPhoneUpdateService1Response dto) {
-            if (ServiceStatus.ERROR.equals(dto.getBody().getStatus())) {
+            if (ResponseStatus.ERROR.equals(dto.getBody().getStatus())) {
                 throw new RetryableException(
                         response.status(),
                         "Service response status = ERROR",
