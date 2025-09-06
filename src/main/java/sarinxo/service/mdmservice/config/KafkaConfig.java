@@ -80,24 +80,7 @@ public class KafkaConfig {
         return new KafkaTemplate<>(pf);
     }
 
-    @Bean
-    public NewTopic mdmChangePhoneInV1Topic() {
-        return TopicBuilder
-                .name(kafkaTopicProperties.userEvent().topicName())
-                .partitions(3)
-                .compact()
-                .build();
-    }
 
-    @Bean
-    public NewTopic mdmChangePhoneInV1TopicDlq() {
-        String dltTopicName = kafkaTopicProperties.userEvent().topicName() + kafkaTopicProperties.dltTopicSuffix();
-
-        return TopicBuilder
-                .name(dltTopicName)
-                .partitions(3)
-                .build();
-    }
 
     @Bean
     public DefaultErrorHandler mdmErrorHandler(
