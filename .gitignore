@@ -37,5 +37,4 @@ out/
 .vscode/
 
 ### mdm-service ###
-
 /docker/appdata/

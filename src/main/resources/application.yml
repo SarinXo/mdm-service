@@ -1,6 +1,67 @@
 spring:
   application:
     name: mdm-service
+
+  kafka:
+    bootstrap-servers: localhost:9391,localhost:9392,localhost:9393
+    consumer:
+      group-id: mdm-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+mdm-service:
+  kafka:
+    dlt-topic-suffix: .DLT
+    user-event:
+      topic-name: MDM.Change.Phone.IN.V1
+  meta:
+    app-name: "${spring.application.name}-SarinXo"
+
+
+external-api:
+  service1:
+    url: "http://localhost:8080/user-data-service-one"
+  service2:
+    url: "http://localhost:8080/user-data-service-two"
+
+
+resilience4j:
+  retry:
+    instances:
+      service1Client:
+        base-config: default-retry-config
+      service2Client:
+        base-config: default-retry-config
+  timelimiter:
+    instances:
+      service1Client:
+        base-config: default-timelimiter-config
+      service2Client:
+        base-config: default-timelimiter-config
+  ratelimiter:
+    instances:
+      service1Client:
+        base-config: default-ratelimiter-config
+  circuitbreaker:
+    instances:
+      service2Client:
+        base-config: default-circuitbreaker-config
+
+
+logging:
+  level:
+    root: INFO
+    io.github.resilience4j: DEBUG
+    io.github.resilience4j.retry: DEBUG
+    io.github.resilience4j.circuitbreaker: DEBUG
+    io.github.resilience4j.timelimiter: DEBUG
+    io.github.resilience4j.ratelimiter: DEBUG
+
   datasource:
     url: ${mdm-service.datasource.url}
     username: ${mdm-service.datasource.username}
